@@ -5,8 +5,11 @@ const app =  express()
 
 app.use(express.json())
 
+require('./app/controllers/authController')(app)
+
+
 app.get('/', (req, res) => {
-    res.status(200).json({OK: true})
+    res.status(200).send("<h1>Bem vindo a api!</h1>")
 })
 
 app.listen(process.env.HOST_PORT, () => {
