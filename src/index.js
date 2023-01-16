@@ -1,12 +1,16 @@
 const express = require('express')
+const {user, sequelize} = require('./app/models')
 require('dotenv').config()
 
 const app =  express()
 
 app.use(express.json())
 
-require('./app/controllers/authController')(app)
+sequelize.sync().then(() => {
+    console.log("Banco de dados conectado com sucesso!")
+})
 
+require('./app/controllers/authController')(app)
 
 app.get('/', (req, res) => {
     res.status(200).send("<h1>Bem vindo a api!</h1>")
