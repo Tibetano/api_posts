@@ -11,6 +11,7 @@ sequelize.sync().then(() => {
 })
 
 require('./app/controllers/authController')(app)
+require('./app/controllers/postController')(app)
 
 app.get('/', (req, res) => {
     res.status(200).send("<h1>Bem vindo a api!</h1>")

@@ -1,6 +1,12 @@
 const router = require('express').Router()
 const { user } = require('../models')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
+
+function generateToken(params = {}) {
+    return jwt.sign(params, process.env.HASH, { expiresIn: 60 * 30 })
+}
 
 router.post('/register', async (req, res) => {
     try {
@@ -9,12 +15,31 @@ router.post('/register', async (req, res) => {
         userTemp.password = await bcrypt.hash(userTemp.password, salt)
         const userRes = await user.create(userTemp)
         userRes.password = undefined
-        res.status(200).json(userRes)
+        res.status(200).json({ userRes, token: generateToken({ id: userRes.id }) })
     } catch (error) {
         //console.log(error)
         res.status(400).json("Erro no cadastro do usuario!")
     }
 })
 
+router.post('/authenticate', async (req, res) => {
+    const { email, password } = req.body
+
+    const userTemp = await user.findAll({
+        where: {
+            email: email
+        }
+    })
+
+    if (!userTemp) {
+        return res.status(400).json("Usuario não encontrado!")
+    }
+
+    if (await bcrypt.compare(password, userTemp[0].password)) {
+        return res.status(200).json({ userTemp, token: generateToken({ id: userTemp[0].id }) })
+    }
+    
+    return res.send("Erro na autenticação!")
+})
 
 module.exports = app => app.use('/auth', router)
