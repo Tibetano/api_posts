@@ -1,20 +1,20 @@
-const user = (sequelize, DataType) => {
+const user = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
         firstName: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             allowNull: false //não permitir nulo
         },
         lastName: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             allowNull: false
         },
         email: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             unique: true,
             allowNull: false
         },
         password: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             allowNull: false
         }
     }, {

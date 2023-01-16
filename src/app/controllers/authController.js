@@ -36,6 +36,7 @@ router.post('/authenticate', async (req, res) => {
     }
 
     if (await bcrypt.compare(password, userTemp[0].password)) {
+        userTemp[0].password = undefined
         return res.status(200).json({ userTemp, token: generateToken({ id: userTemp[0].id }) })
     }
     
