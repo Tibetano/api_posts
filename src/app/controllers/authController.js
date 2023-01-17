@@ -17,7 +17,6 @@ router.post('/register', async (req, res) => {
         userRes.password = undefined
         res.status(200).json({ userRes, token: generateToken({ id: userRes.id }) })
     } catch (error) {
-        //console.log(error)
         res.status(400).json("Erro no cadastro do usuario!")
     }
 })

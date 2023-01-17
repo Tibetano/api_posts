@@ -22,4 +22,22 @@ router.post('/', async (req, res) => {
     
 })
 
+router.get('/', async (req, res) => {
+    return res.status(200).json({OK: true})
+})
+
+
+router.get('/:id', async (req, res) => {
+    return res.status(200).json({OK: true})
+})
+
+
+router.put('/', async (req, res) => {
+    return res.status(200).json({OK: true})
+})
+
+router.delete('/', async (req, res) => {
+    return res.status(200).json({OK: true})
+})
+
 module.exports = app => app.use('/posts', router)
