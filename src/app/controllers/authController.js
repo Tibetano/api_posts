@@ -17,7 +17,7 @@ router.post('/register', async (req, res) => {
         userRes.password = undefined
         res.status(200).json({ userRes, token: generateToken({ id: userRes.id }) })
     } catch (error) {
-        res.status(400).json("Erro no cadastro do usuario!")
+        res.status(400).json({error: "Erro ao cadastrar usuario!"})
     }
 })
 
@@ -31,7 +31,7 @@ router.post('/authenticate', async (req, res) => {
     })
 
     if (!userTemp) {
-        return res.status(400).json("Usuario não encontrado!")
+        return res.status(400).json({error: "Usuario não encontrado!"})
     }
 
     if (await bcrypt.compare(password, userTemp[0].password)) {
@@ -39,7 +39,7 @@ router.post('/authenticate', async (req, res) => {
         return res.status(200).json({ userTemp, token: generateToken({ id: userTemp[0].id }) })
     }
     
-    return res.send("Erro na autenticação!")
+    return res.status(400).json({error: "Erro na autenticação!"})
 })
 
 module.exports = app => app.use('/auth', router)

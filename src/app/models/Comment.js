@@ -8,6 +8,10 @@ const comment = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: true
         },
+        post: {
+            type: DataTypes.INTEGER, //definir esse atributo como parte da primary key
+            allowNull: false
+        },
         deletedAt: {
             type: DataTypes.DATE,
             allowNull: true

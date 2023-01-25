@@ -1,15 +1,16 @@
 const like = (sequelize, DataTypes) => {
     const Like = sequelize.define('Like', {
         isLike: {
-            type: DataTypes.BOOLEAN //true=like, false = deslike, null=removeu o like ou delike 
+            type: DataTypes.BOOLEAN, //true=like, false = deslike, null=removeu o like, ou seja, deixou sem like ou deslike
+            allowNull: true
         },
         user: {
             type: DataTypes.INTEGER, //definir esse atributo como parte da primary key
-            allowNull: true
+            allowNull: false
         },
         post: {
             type: DataTypes.INTEGER, //definir esse atributo como parte da primary key
-            allowNull: true
+            allowNull: false
         },
         deletedAt: {
             type: DataTypes.DATE,
