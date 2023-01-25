@@ -8,7 +8,7 @@ const likeComment = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER, //definir esse atributo como parte da primary key
             allowNull: false
         },
-        post: {
+        comment: {
             type: DataTypes.INTEGER, //definir esse atributo como parte da primary key
             allowNull: false
         },
@@ -17,7 +17,7 @@ const likeComment = (sequelize, DataTypes) => {
             allowNull: true
         }
     }, {
-        tableName: 'likeComments'
+        tableName: 'like_comments'
     })
 
     return LikeComment //NÃO ESQUECER DE RETORNAR O OBJETOOOoooooooooooooooooooooooooooooooooooooo
