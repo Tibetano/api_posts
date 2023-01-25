@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const auth = require('../middlewares/auth')
-const { post, like } = require('../models')
+const { post, like, comment } = require('../models')
 
 router.use(auth)
 
@@ -61,5 +61,30 @@ router.post('/l', async (req, res) => {
         return res.status(400).json({error: "Erro na criação ao curtir postagem"})
     }
 })
+
+
+router.post('/c', async (req, res) => {
+
+
+    //adicionar as verificações
+
+
+    const commentTemp = {
+        content: req.body.content, 
+        post: req.body.post,
+        user: req.userId,
+        deletedAt: null
+    }
+    
+    try {
+        const commentRes = await comment.create(commentTemp)
+        return res.status(200).json(commentRes)
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({error: "Erro na criação do comentário da postagem"})
+    }
+})
+
+
 
 module.exports = app => app.use('/posts', router)
