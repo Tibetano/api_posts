@@ -18,7 +18,7 @@ const user = (sequelize, DataTypes) => {
             allowNull: false
         }
     }, {
-        tableName: 'users'
+        tableName: 'tb_users'
     }
     )
 

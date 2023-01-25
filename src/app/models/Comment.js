@@ -17,7 +17,7 @@ const comment = (sequelize, DataTypes) => {
             allowNull: true
         }
     }, {
-        tableName: 'comments'
+        tableName: 'tb_comments'
     })
 
     return Comment //NÃO ESQUECER DE RETORNAR O OBJETOOOoooooooooooooooooooooooooooooooooooooo

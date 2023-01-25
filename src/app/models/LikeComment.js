@@ -17,7 +17,7 @@ const likeComment = (sequelize, DataTypes) => {
             allowNull: true
         }
     }, {
-        tableName: 'like_comments'
+        tableName: 'tb_like_comments'
     })
 
     return LikeComment //NÃO ESQUECER DE RETORNAR O OBJETOOOoooooooooooooooooooooooooooooooooooooo

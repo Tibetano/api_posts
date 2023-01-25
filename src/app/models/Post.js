@@ -13,7 +13,7 @@ const post = (sequelize, DataTypes) => {
             allowNull: true
         }
     }, {
-        tableName: 'posts'
+        tableName: 'tb_posts'
     })
 
     return Post //NÃO ESQUECER DE RETORNAR O OBJETOOOoooooooooooooooooooooooooooooooooooooo
