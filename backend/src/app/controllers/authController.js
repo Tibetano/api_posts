@@ -15,9 +15,9 @@ router.post('/register', async (req, res) => {
         userTemp.password = await bcrypt.hash(userTemp.password, salt)
         const userRes = await user.create(userTemp)
         userRes.password = undefined
-        res.status(200).json({ userRes, token: generateToken({ id: userRes.id }) })
+        return res.status(200).json({ userRes, token: generateToken({ id: userRes.id }) })
     } catch (error) {
-        res.status(400).json({error: "Erro ao cadastrar usuario!"})
+        return res.status(400).json({error: "Erro ao cadastrar usuario!"})
     }
 })
 
