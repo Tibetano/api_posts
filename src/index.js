@@ -1,14 +1,23 @@
 const express = require('express')
 const { user, post, sequelize } = require('./app/models')
+const cors = require('cors')
 require('dotenv').config()
 
 const app = express()
 
 app.use(express.json())
 
+app.use(cors())
+
 sequelize.sync().then(() => {
     console.log("Banco de dados conectado com sucesso!")
 })
+
+
+//app.use((req, res, next) => {
+//    app.use(cors())
+//    next()
+//})
 
 require('./app/controllers/authController')(app)
 require('./app/controllers/postController')(app)
