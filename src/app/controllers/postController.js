@@ -13,22 +13,46 @@ router.post('/', async (req, res) => {
     }
 
     try {
-        const postRes = await post.create(postTemp)
-        return res.status(200).json(postRes)
+        await post.create(postTemp)
+        return res.status(200).json({ message: "Postagem criada com sucesso!" })
     } catch (error) {
         console.log(error)
-        return res.status(400).json({ error: "Erro na criação da postagem" })
+        return res.status(400).json({ error: "Erro na criação da postagem." })
     }
 
 })
 
 router.get('/', async (req, res) => {
-    return res.status(200).json({ OK: true })
+
+    try {
+        const posts = await post.findAll()
+        if(!posts){
+            return res.status(200).json({message: "Não existem comentários."})
+        } else {
+            return res.status(200).json({ posts })
+        }
+    } catch (error) {
+        return res.status(400).json({ error: "Erro ao buscar postagens." })
+    }
+
 })
 
 
 router.get('/:id', async (req, res) => {
-    return res.status(200).json({ OK: true })
+
+    const {id} = req.params
+
+    try {
+        const postRes = await post.findByPk(id)
+        if(!postRes){
+            return res.status(200).json({message: "Postagem não encontrada!"})
+        } else{
+            return res.status(200).json({postRes})
+        }
+    } catch (error) {
+        return res.status(400).json({ error: "Erro ao buscar postagem" })
+    }
+
 })
 
 
@@ -36,8 +60,29 @@ router.put('/', async (req, res) => {
     return res.status(200).json({ OK: true })
 })
 
-router.delete('/', async (req, res) => {
-    return res.status(200).json({ OK: true })
+router.delete('/:id', async (req, res) => {
+    const {id} = req.params
+
+    try {
+        const postRes = await post.findByPk(id)
+        if(!postRes){
+            return res.status(200).json({message: "Postagem não encontrada!"})
+        }
+    } catch (error) {
+        return res.status(400).json({ error: "Erro ao buscar postagem" })
+    }
+
+    try {
+        post.destroy({
+            where: {
+                id: id
+            }
+        })
+        return res.status(200).json({ message: "Postagem excluida com sucesso!" })
+    } catch (error) {
+        return res.status(200).json({ error: "Erro ao deletar postagem." })
+    }
+
 })
 
 router.post('/l', async (req, res) => {
